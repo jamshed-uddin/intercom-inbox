@@ -4,6 +4,7 @@ import "./globals.css";
 import AISection from "@/components/AISection";
 import ChatList from "@/components/ChatList";
 import Inbox from "@/components/Inbox";
+import StoreProvider from "@/providers/StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Inbox>{children}</Inbox>
+        <StoreProvider>
+          <Inbox>{children}</Inbox>
+        </StoreProvider>
       </body>
     </html>
   );

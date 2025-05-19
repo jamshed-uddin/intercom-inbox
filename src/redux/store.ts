@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
+import sectionTogglerReducer from "../redux/features/sectionToggleSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      sectionToggler: sectionTogglerReducer,
+    },
   });
 };
 
