@@ -1,7 +1,7 @@
-export type message = {
+export type Message = {
   id: string;
   content: string;
-  timestamp: string; // ISO 8601 format
+  timestamp: string;
   isRead: boolean;
   sender: "user" | "bot";
 };
@@ -14,6 +14,6 @@ export interface Chat {
     avatar: string | null;
     isLoggedIn: boolean;
   };
-  lastMessage: message;
-  messages: message[];
+  lastMessage: Message;
+  messages: Message[];
 }

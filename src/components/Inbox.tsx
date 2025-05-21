@@ -9,9 +9,8 @@ import clsx from "clsx";
 import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 
 const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
-  const { openAISection, openChat } = useAppSelector(
-    (state) => state.sectionToggler
-  );
+  const { chats, sectionToggler } = useAppSelector((state) => state);
+
   const dispatch = useAppDispatch();
 
   const toggleAiSection = () => {
@@ -19,7 +18,7 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden  divide-x divide-black">
+    <div className="flex h-screen overflow-hidden  ">
       {/* chat list */}
       <div className=" lg:w-1/5 w-full transition-all duration-500 z-50  absolute inset-0 lg:static shrink-0">
         <ChatList />
@@ -33,15 +32,15 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
       {/* ai section */}
       <div
         className={clsx(
-          "  transition-all duration-500 absolute inset-0 lg:static z-30 ",
-          openAISection
-            ? "translate-x-0 lg:w-1/3 w-full "
+          "  transition-all duration-500 absolute inset-0 lg:static z-30 shrink-0",
+          sectionToggler.openAISection && chats.selectedChat
+            ? "translate-x-0 lg:w-[30%] w-full "
             : "translate-x-96 w-0 "
         )}
       >
         <AISection
           toggleSection={toggleAiSection}
-          openAISection={openAISection}
+          openAISection={sectionToggler.openAISection}
         />
       </div>
     </div>

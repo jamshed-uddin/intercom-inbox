@@ -8,7 +8,7 @@ const ChatList = () => {
   const { chats } = useAppSelector((state) => state.chats);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-screen bg-white">
       <div className="shrink-0">
         <div className="border-b  border-gray-300">
           <h2 className="text-xl font-medium   pb-5  px-3  ">Your inbox</h2>
@@ -23,13 +23,7 @@ const ChatList = () => {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto ">
-        <div className="space-y-3 px-3 py-1 h-max">
-          {chats.map((item) => (
-            <ChatListItem key={item.chatId} chat={item} />
-          ))}
-          {chats.map((item) => (
-            <ChatListItem key={item.chatId} chat={item} />
-          ))}
+        <div className="space-y-5 px-3 py-1 ">
           {chats.map((item) => (
             <ChatListItem key={item.chatId} chat={item} />
           ))}

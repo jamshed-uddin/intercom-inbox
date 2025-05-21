@@ -25,10 +25,11 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
         />
       </div>
       <div className="space-y-1">
-        <h3 className=" text-[1.1rem] leading-3">
-          {chat?.user?.name || chat?.user?.id}
-        </h3>
-        <p className="">{`${chat?.lastMessage?.content.slice(0, 20)}...`}</p>
+        <h3 className="  leading-3">{chat?.user?.name || chat?.user?.id}</h3>
+        <p className="text-sm">{`${chat?.lastMessage?.content.slice(
+          0,
+          20
+        )}...`}</p>
       </div>
     </div>
   );
