@@ -92,7 +92,7 @@ export default function Home() {
       </div>
 
       {/* messages */}
-      <div className="flex-1 w-full flex justify-center overflow-y-auto px-3 py-6">
+      <div className="flex-1 w-full max-w-[43rem] mx-auto flex justify-center overflow-y-auto px-3 py-6">
         <div>
           {selectedChat?.messages.map((message) => (
             <div
