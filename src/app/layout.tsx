@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AISection from "@/components/AISection";
-import ChatList from "@/components/ChatList";
+
 import Inbox from "@/components/Inbox";
 import StoreProvider from "@/providers/StoreProvider";
 

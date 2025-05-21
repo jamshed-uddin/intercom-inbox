@@ -48,7 +48,6 @@ const messageInputSlice = createSlice({
 export const {
   setCustomerInput,
   setAIInput,
-  addCustomerMessage,
   addAIMessage,
   transferToAIInput,
   transferToCustomerInput,
