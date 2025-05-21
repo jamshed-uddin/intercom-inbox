@@ -20,7 +20,7 @@ import { ChangeEvent, useEffect, useRef } from "react";
 
 export default function Home() {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { customer } = useAppSelector((state) => state.messageInput);
 
   const { openAISection } = useAppSelector((state) => state.sectionToggler);
@@ -36,6 +36,10 @@ export default function Home() {
         textAreaRef.current.scrollHeight + "px";
     }
   }, [customer.input]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [selectedChat?.messages]);
 
   console.log(openAISection);
   const toggleAiSection = () => {
@@ -58,9 +62,11 @@ export default function Home() {
     <div className="flex flex-col h-screen bg-white">
       {/* header */}
       <div className="flex justify-between px-3  pt-1 pb-4 border-b border-gray-300 shrink-0">
-        <h3>Name</h3>
+        <h3 className="text-lg font-medium">
+          {selectedChat.user.name || selectedChat.user.id}
+        </h3>
         <div className="text-sm flex items-center gap-4">
-          <button className="bg-gray-100 p-1 rounded">
+          <button className="bg-gray-100 p-1 rounded cursor-pointer">
             <EllipsisHorizontalIcon className="w-4 h-4 " />
           </button>
           <button className="flex items-center cursor-pointer relative bg-gray-100 p-1 rounded">
@@ -124,6 +130,8 @@ export default function Home() {
               </div>
             </div>
           ))}
+
+          <div ref={messagesEndRef} />
         </div>
       </div>
 
@@ -157,7 +165,7 @@ export default function Home() {
             {/* send button */}
             <div
               className={clsx(
-                "flex items-center  rounded-lg px-2 py-1 transition-all duration-300",
+                "flex items-center  rounded-lg px-2 py-1 transition-all duration-500",
                 customer.input ? "bg-black text-white" : "bg-white text-black"
               )}
             >

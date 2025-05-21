@@ -23,7 +23,7 @@ const ChatList = () => {
         </div>
       </div>
       <div className="flex-1 overflow-y-auto ">
-        <div className="space-y-5 px-3 py-1 ">
+        <div className="space-y-4 px-3 py-1 ">
           {chats.map((item) => (
             <ChatListItem key={item.chatId} chat={item} />
           ))}

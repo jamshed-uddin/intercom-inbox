@@ -339,7 +339,78 @@ const initialState: ChatInitialStateTypes = {
       ],
     },
   ],
-  selectedChat: null,
+  selectedChat: {
+    chatId: "chat_001",
+    user: {
+      id: "user_123",
+      name: "John Smith",
+      avatar:
+        "https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-173524.jpg?ga=GA1.1.1941897121.1746682297&semt=ais_hybrid&w=740",
+      isLoggedIn: true,
+    },
+    lastMessage: {
+      id: "msg_001_7",
+      content: "Thanks for resolving my issue with the delivery!",
+      timestamp: "2025-05-20T11:30:45.000Z",
+      isRead: true,
+      sender: "user",
+    },
+    messages: [
+      {
+        id: "msg_001_1",
+        content: "Hi, I have a question about my delivery",
+        timestamp: "2025-05-20T11:25:10.000Z",
+        sender: "user",
+        isRead: true,
+      },
+      {
+        id: "msg_001_2",
+        content:
+          "Hello John! I'd be happy to help with your delivery question. Could you please provide your order number?",
+        timestamp: "2025-05-20T11:25:30.000Z",
+        sender: "bot",
+        isRead: true,
+      },
+      {
+        id: "msg_001_3",
+        content: "It's order #87654",
+        timestamp: "2025-05-20T11:26:15.000Z",
+        sender: "user",
+        isRead: true,
+      },
+      {
+        id: "msg_001_4",
+        content:
+          "Thank you. I can see your order was delivered yesterday at 2:15 PM. Was there a problem with the delivery?",
+        timestamp: "2025-05-20T11:27:00.000Z",
+        sender: "bot",
+        isRead: true,
+      },
+      {
+        id: "msg_001_5",
+        content:
+          "I was concerned it might be lost, but I just found it. My neighbor had accepted it for me.",
+        timestamp: "2025-05-20T11:29:45.000Z",
+        sender: "user",
+        isRead: true,
+      },
+      {
+        id: "msg_001_6",
+        content:
+          "I'm glad to hear you located your package! Is there anything else I can help you with today?",
+        timestamp: "2025-05-20T11:30:15.000Z",
+        sender: "bot",
+        isRead: true,
+      },
+      {
+        id: "msg_001_7",
+        content: "Thanks for resolving my issue with the delivery!",
+        timestamp: "2025-05-20T11:30:45.000Z",
+        sender: "user",
+        isRead: true,
+      },
+    ],
+  },
 };
 
 const chatsSlice = createSlice({

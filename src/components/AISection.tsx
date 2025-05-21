@@ -34,6 +34,7 @@ const AISection = ({ toggleSection }: AISectionProps) => {
             `,
       }}
     >
+      {/* header -- tabs */}
       <div className="shrink-0 flex justify-between items-start pt-2  border-b  border-gray-300 pr-3">
         <div className="flex gap-4 px-3 text-sm">
           {tabs.map((tab) => (
@@ -64,6 +65,7 @@ const AISection = ({ toggleSection }: AISectionProps) => {
         </button>
       </div>
 
+      {/* messages */}
       <div className="flex-1 overflow-y-auto px-2 h-full ">
         {ai.messages.length > 0 ? (
           <div>ai messages</div>
@@ -84,13 +86,13 @@ const AISection = ({ toggleSection }: AISectionProps) => {
         <div className="relative bg-white rounded-lg">
           <input
             type="text"
-            className=" w-full shadow-md rounded-lg py-2 px-1 focus:outline-0 focus:ring-2 focus:ring-indigo-600"
+            className=" w-full shadow-md rounded-lg py-2 px-1 focus:outline-0 focus:ring-2 focus:ring-indigo-600 transition-all duration-500"
             value={ai.input}
             onChange={handleAIInputChange}
           />
           <button
             className={clsx(
-              " rounded-lg px-1.5  absolute right-0.5 top-1 bottom-1 cursor-pointer transition-all duration-300",
+              " rounded-lg px-1.5  absolute right-0.5 top-1 bottom-1 cursor-pointer transition-all duration-500",
               ai.input ? "bg-black text-white" : "bg-white text-black"
             )}
           >
