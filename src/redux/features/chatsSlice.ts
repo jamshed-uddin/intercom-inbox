@@ -346,7 +346,9 @@ const chatsSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    setSectedChat: (state, action: { payload: Chat }) => {
+    setSectedChat: (state, action) => {
+      console.log("chat slice", action.payload);
+      console.log("hello from slice");
       state.selectedChat = action.payload;
     },
   },

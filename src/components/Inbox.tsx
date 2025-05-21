@@ -19,19 +19,21 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden ">
-      <div className="bg-amber-200 lg:w-1/5 w-full transition-all duration-500 z-50  absolute inset-0 lg:static ">
+    <div className="flex h-screen overflow-hidden  divide-x divide-black">
+      {/* chat list */}
+      <div className=" lg:w-1/5 w-full transition-all duration-500 z-50  absolute inset-0 lg:static shrink-0">
         <ChatList />
       </div>
-      <div className="bg-green-300 flex-grow transition-all duration-500 absolute inset-0 lg:static ">
-        <button onClick={toggleAiSection} className="">
-          Close
-        </button>
+
+      {/* messages inbox */}
+      <div className=" flex-grow transition-all duration-500 absolute inset-0 lg:static ">
         {children}
       </div>
+
+      {/* ai section */}
       <div
         className={clsx(
-          "bg-violet-400  transition-all duration-500 absolute inset-0 lg:static z-30 ",
+          "  transition-all duration-500 absolute inset-0 lg:static z-30 ",
           openAISection
             ? "translate-x-0 lg:w-1/3 w-full "
             : "translate-x-96 w-0 "
