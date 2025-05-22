@@ -9,7 +9,8 @@ import clsx from "clsx";
 import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 
 const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
-  const { chats, sectionToggler } = useAppSelector((state) => state);
+  const { selectedChat } = useAppSelector((state) => state.chats);
+  const { openAISection } = useAppSelector((state) => state.sectionToggler);
 
   const dispatch = useAppDispatch();
 
@@ -33,15 +34,12 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
       <div
         className={clsx(
           "  transition-all duration-500 absolute inset-0 lg:static z-30 shrink-0",
-          sectionToggler.openAISection && chats.selectedChat
+          openAISection && selectedChat
             ? "translate-x-0 lg:w-[30%] w-full "
             : "translate-x-96 w-0 "
         )}
       >
-        <AISection
-          toggleSection={toggleAiSection}
-          openAISection={sectionToggler.openAISection}
-        />
+        <AISection toggleSection={toggleAiSection} />
       </div>
     </div>
   );

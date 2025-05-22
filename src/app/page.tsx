@@ -1,4 +1,5 @@
 "use client";
+import ChatMessages from "@/components/ChatMessages";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { setSectedChat } from "@/redux/features/chatsSlice";
 import { setCustomerInput } from "@/redux/features/messageInputSlice";
@@ -15,7 +16,6 @@ import {
   MoonIcon,
 } from "@heroicons/react/24/solid";
 import clsx from "clsx";
-import Image from "next/image";
 import { ChangeEvent, useEffect, useRef } from "react";
 
 export default function Home() {
@@ -49,6 +49,49 @@ export default function Home() {
   const handleSetMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setCustomerInput(e.target.value));
   };
+
+  useEffect(() => {
+    const getSelectedText = () => {
+      const selection = window.getSelection();
+
+      if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+        return;
+      }
+
+      const range = selection?.getRangeAt(0);
+      const commonAncestor = range?.commonAncestorContainer;
+      const selectedElement =
+        commonAncestor?.nodeType === 1
+          ? commonAncestor
+          : commonAncestor?.parentElement;
+
+      if (commonAncestor instanceof HTMLElement) {
+        console.log("html elem");
+      } else {
+        console.log("not elem");
+      }
+
+      console.log("node type", commonAncestor.nodeType);
+      console.log("comm ancestor", commonAncestor);
+
+      const ract = range?.getBoundingClientRect();
+      const isMessage = selectedElement?.closest(".chat-message");
+      console.log(isMessage);
+      const attr = commonAncestor.parentElement?.getAttribute("class");
+
+      console.log("attr", attr);
+
+      console.log("common ancestor", commonAncestor);
+      console.log("selectedElement", selectedElement);
+      console.log("selection", selection);
+    };
+
+    window.addEventListener("mouseup", getSelectedText);
+
+    return () => {
+      window.removeEventListener("mouseup", getSelectedText);
+    };
+  }, []);
 
   if (!selectedChat) {
     return (
@@ -93,46 +136,10 @@ export default function Home() {
 
       {/* messages */}
       <div className="flex-1 w-full max-w-[43rem] mx-auto flex justify-center overflow-y-auto px-3 py-6">
-        <div>
-          {selectedChat?.messages.map((message) => (
-            <div
-              key={message.id}
-              className={clsx(
-                "flex  w-full  mb-3",
-                message.sender === "user"
-                  ? "justify-start"
-                  : "justify-end text-end"
-              )}
-            >
-              <div className="flex items-end max-w-[80%] gap-2">
-                {message.sender === "user" && (
-                  <div className="h-6  w-6  overflow-hidden shrink-0">
-                    <Image
-                      width={30}
-                      height={30}
-                      src={selectedChat.user.avatar as string}
-                      alt={selectedChat.user.name || "avatar"}
-                      className="w-full h-full rounded-full object-cover"
-                    />
-                  </div>
-                )}
-
-                <div
-                  className={clsx(
-                    " rounded-lg p-2 animate-fadeIn flex items-center gap-1 text-sm",
-                    message.sender === "user"
-                      ? "  bg-gray-200"
-                      : "  bg-indigo-100 "
-                  )}
-                >
-                  <div> {message.content}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          <div ref={messagesEndRef} />
-        </div>
+        <ChatMessages
+          selectedChat={selectedChat}
+          messagesEndRef={messagesEndRef}
+        />
       </div>
 
       {/* message input box */}

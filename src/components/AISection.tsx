@@ -10,7 +10,6 @@ import { setAIInput } from "@/redux/features/messageInputSlice";
 
 interface AISectionProps {
   toggleSection: () => void;
-  openAISection: boolean;
 }
 
 const tabs: string[] = ["AI Copilot", "Details"];
