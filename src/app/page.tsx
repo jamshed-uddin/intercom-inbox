@@ -23,6 +23,8 @@ export default function Home() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { customer } = useAppSelector((state) => state.messageInput);
 
+  const messageContainerRef = useRef<HTMLDivElement | null>(null);
+
   const { openAISection } = useAppSelector((state) => state.sectionToggler);
 
   const { selectedChat } = useAppSelector((state) => state.chats);
@@ -41,7 +43,6 @@ export default function Home() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [selectedChat?.messages]);
 
-  console.log(openAISection);
   const toggleAiSection = () => {
     dispatch(toggleAISection());
   };
@@ -49,49 +50,6 @@ export default function Home() {
   const handleSetMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setCustomerInput(e.target.value));
   };
-
-  useEffect(() => {
-    const getSelectedText = () => {
-      const selection = window.getSelection();
-
-      if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
-        return;
-      }
-
-      const range = selection?.getRangeAt(0);
-      const commonAncestor = range?.commonAncestorContainer;
-      const selectedElement =
-        commonAncestor?.nodeType === 1
-          ? commonAncestor
-          : commonAncestor?.parentElement;
-
-      if (commonAncestor instanceof HTMLElement) {
-        console.log("html elem");
-      } else {
-        console.log("not elem");
-      }
-
-      console.log("node type", commonAncestor.nodeType);
-      console.log("comm ancestor", commonAncestor);
-
-      const ract = range?.getBoundingClientRect();
-      const isMessage = selectedElement?.closest(".chat-message");
-      console.log(isMessage);
-      const attr = commonAncestor.parentElement?.getAttribute("class");
-
-      console.log("attr", attr);
-
-      console.log("common ancestor", commonAncestor);
-      console.log("selectedElement", selectedElement);
-      console.log("selection", selection);
-    };
-
-    window.addEventListener("mouseup", getSelectedText);
-
-    return () => {
-      window.removeEventListener("mouseup", getSelectedText);
-    };
-  }, []);
 
   if (!selectedChat) {
     return (
@@ -135,10 +93,15 @@ export default function Home() {
       </div>
 
       {/* messages */}
-      <div className="flex-1 w-full max-w-[43rem] mx-auto flex justify-center overflow-y-auto px-3 py-6">
+      <div
+        ref={messageContainerRef}
+        id="message-container"
+        className="flex-1 w-full max-w-[43rem] mx-auto flex justify-center overflow-y-auto px-3 py-6 relative"
+      >
         <ChatMessages
           selectedChat={selectedChat}
           messagesEndRef={messagesEndRef}
+          messageContainerRef={messageContainerRef}
         />
       </div>
 

@@ -2,7 +2,7 @@
 
 import { WindowIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -18,6 +18,17 @@ const AISection = ({ toggleSection }: AISectionProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const { ai } = useAppSelector((state) => state.messageInput);
   const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  console.log(ai.input);
+  useEffect(() => {
+    console.log("Effect runs, inputRef.current:", inputRef.current);
+    if (ai.input.trim() && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
+    }
+  }, [ai.input]);
 
   const handleAIInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setAIInput(e.target.value));
@@ -84,6 +95,7 @@ const AISection = ({ toggleSection }: AISectionProps) => {
       <div className="shrink-0 px-2 pb-4  ">
         <div className="relative bg-white rounded-lg">
           <input
+            ref={inputRef}
             type="text"
             className=" w-full shadow-md rounded-lg py-2 px-1 focus:outline-0 focus:ring-2 focus:ring-indigo-600 transition-all duration-500"
             value={ai.input}
