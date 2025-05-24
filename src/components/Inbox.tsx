@@ -42,7 +42,7 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
       {/* ai section */}
       <div
         className={clsx(
-          "  transition-all duration-500 origin-left absolute inset-0 lg:static  shrink-0",
+          "  transition-all duration-500  absolute inset-0 lg:static  shrink-0",
           openAISection && selectedChat
             ? "translate-x-0 lg:w-[30%] w-full z-50"
             : "translate-x-full w-0 z-0"

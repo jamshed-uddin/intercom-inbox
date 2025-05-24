@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import timeDiff from "@/lib/timeDiff";
 import { Chat } from "@/lib/types";
 import { setAIInput } from "@/redux/features/messageInputSlice";
+import { motion } from "motion/react";
 import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 import clsx from "clsx";
 import Image from "next/image";
@@ -103,7 +104,17 @@ const ChatMessages = ({
             message.sender === "user" ? "justify-start" : "justify-end "
           )}
         >
-          <div className="flex items-end max-w-[80%] gap-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.2,
+
+              ease: "easeOut",
+            }}
+            viewport={{ once: true }}
+            className="flex items-end max-w-[80%] gap-2"
+          >
             {/* sender avatar */}
             {message.sender === "user" && (
               <div className="h-6  w-6  overflow-hidden shrink-0">
@@ -159,7 +170,7 @@ const ChatMessages = ({
                 />
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       ))}
 
