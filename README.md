@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Inbox with simulated AI Copilot
 
-## Getting Started
+This is a customer service web application with AI Copilot where admin/assignee can interact with a simulated AI (“Fin AI Copilot”) for customer support, including suggested messages and animated message display.
 
-First, run the development server:
+## Live site
+
+[https://intercom-inbox.vercel.app/](https://intercom-inbox.vercel.app/)
+
+---
+
+## 🏗 Core Sections
+
+- **Chat List**: Displays available chats; auto-selects the first chat on desktop.
+- **Chat Inbox**: Shows conversation history between user and AI, with animated message rendering.
+- **AI Copilot**: AI Copilot to help with the response to the customer.
+- **AI Response**: AI replies include extra actions (e.g., add to composer, show sources).
+- **Floating button on selected text**: Floating button on selected customer message text to pass it to the AI Copilot.
+
+---
+
+## ✨ Enhancements
+
+- **Responsive Design** Desktop first responsive design
+- **Tailwind CSS** for fast and consistent styling
+- **Framer Motion** for animations
+
+---
+
+## 🎨 Design Choices
+
+- **Color palette**: white background with black text for strong contrast and clarity. Gradient background on AI Copilot
+- **Typography**: Geist sans for a clean, professional look
+- **Icons**: Heroicons for consistency and minimalism
+- **Animations**: Framer Motion used for smooth fade and reveal effects
+- **Layout**: Desktop first responsive sections.
+
+---
+
+## 🛠 Tech Stack
+
+- TypeScript
+- React + Next js
+- Tailwind CSS
+- Framer Motion
+- Redux Toolkit
+- Icons: Heroicons
+
+---
+
+## 🧪 Run Locally
+
+#### 1. Clone the repo:
+
+```bash
+git clone https://github.com/jamshed-uddin/intercom-inbox.git
+```
+
+#### 2. Change directory
+
+```bash
+  cd intercom-inbox
+```
+
+#### 3. Install packages
+
+```bash
+npm install
+```
+
+#### 4. Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+"dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@reduxjs/toolkit": "^2.8.2",
+    "clsx": "^2.1.1",
+    "motion": "^12.12.1",
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+```
