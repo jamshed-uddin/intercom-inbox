@@ -5,7 +5,7 @@ interface ToggleState {
   openChat: boolean;
 }
 const initialState: ToggleState = {
-  openAISection: true,
+  openAISection: false,
   openChat: false,
 };
 

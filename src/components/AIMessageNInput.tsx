@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef } from "react";
 import {
+  ArrowRightIcon,
   ArrowUpIcon,
   BanknotesIcon,
   ChevronDownIcon,
@@ -13,6 +14,7 @@ import {
 } from "@/redux/features/messageInputSlice";
 import clsx from "clsx";
 import Image from "next/image";
+import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 
 const AIMessageNInput = () => {
   const { ai } = useAppSelector((state) => state.messageInput);
@@ -30,7 +32,6 @@ const AIMessageNInput = () => {
   }, [ai.messages]);
 
   useEffect(() => {
-    console.log("Effect runs, inputRef.current:", inputRef.current);
     if (ai.input.trim() && inputRef.current) {
       setTimeout(() => {
         inputRef.current?.focus();
@@ -59,7 +60,12 @@ const AIMessageNInput = () => {
   };
 
   const componseMessage = (message: string) => {
+    const isDesktop = window.innerWidth >= 768;
     dispatch(setCustomerInput(message));
+
+    if (!isDesktop) {
+      dispatch(toggleAISection());
+    }
   };
 
   const sendSuggestedMessage = (message: string) => {
@@ -135,13 +141,20 @@ const AIMessageNInput = () => {
                     )}
                   </div>
                   {message.sender === "bot" && message.resources?.length && (
-                    <div>
+                    <div className="mt-2">
                       <h3>{message.resources.length} relevant sources found</h3>
                       <div>
-                        {message.resources.map((source, idx) => (
-                          <li key={idx}>{source}</li>
+                        {message.resources.slice(0, 3).map((source, idx) => (
+                          <li key={idx} className="cursor-pointer">
+                            {source}
+                          </li>
                         ))}
                       </div>
+                      {message.resources.length > 3 && (
+                        <button className="font-medium flex items-center gap-1 cursor-pointer text-sm">
+                          See all <ArrowRightIcon className="w-3 h-3 inline" />
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

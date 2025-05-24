@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import timeDiff from "@/lib/timeDiff";
 import { Chat } from "@/lib/types";
 import { setAIInput } from "@/redux/features/messageInputSlice";
+import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 import clsx from "clsx";
 import Image from "next/image";
 import React, { Ref, RefObject, useEffect, useState } from "react";
@@ -77,8 +78,13 @@ const ChatMessages = ({
     };
   }, [messageContainerRef]);
 
+  // passing selected text to co pilot input box
   const askAIHandler = () => {
+    const isDesktop = window.innerWidth >= 768;
     dispatch(setAIInput(selectedText));
+    if (!isDesktop) {
+      dispatch(toggleAISection());
+    }
 
     setTimeout(() => {
       setBtnPosition(null);

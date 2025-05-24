@@ -19,7 +19,7 @@ const AISection = ({ toggleSection }: AISectionProps) => {
   return (
     <div className="h-screen flex flex-col ">
       {/* header -- tabs */}
-      <div className="shrink-0 flex justify-between items-start pt-2  border-b  border-gray-300 pr-4">
+      <div className="shrink-0 flex justify-between items-start pt-2  border-b  border-gray-300 pr-4 bg-white">
         <div className="flex gap-4 px-4 text-sm">
           {tabs.map((tab) => (
             <motion.button

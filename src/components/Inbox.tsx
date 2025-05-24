@@ -18,25 +18,34 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
     dispatch(toggleAISection());
   };
 
+  console.log("ai section", openAISection);
+
   return (
-    <div className="flex h-screen overflow-hidden  ">
+    <div className="lg:flex h-full">
       {/* chat list */}
-      <div className=" lg:w-[22%] w-full transition-all duration-500 z-50  absolute inset-0 lg:static shrink-0">
+      <div
+        className={clsx(
+          "lg:w-[22%] w-full transition-all duration-500   absolute inset-0 lg:static shrink-0",
+          selectedChat
+            ? "-translate-full z-0  lg:translate-0"
+            : "translate-0 z-50"
+        )}
+      >
         <ChatList />
       </div>
 
       {/* messages inbox */}
-      <div className=" flex-grow transition-all duration-500 absolute inset-0 lg:static ">
+      <div className=" flex-grow transition-all duration-500 absolute inset-0 lg:static z-40">
         {children}
       </div>
 
       {/* ai section */}
       <div
         className={clsx(
-          "  transition-all duration-500 absolute inset-0 lg:static z-30 shrink-0",
+          "  transition-all duration-500 origin-left absolute inset-0 lg:static  shrink-0",
           openAISection && selectedChat
-            ? "translate-x-0 lg:w-[30%] w-full "
-            : "translate-x-96 w-0 "
+            ? "translate-x-0 lg:w-[30%] w-full z-50"
+            : "translate-x-full w-0 z-0"
         )}
       >
         <AISection toggleSection={toggleAiSection} />

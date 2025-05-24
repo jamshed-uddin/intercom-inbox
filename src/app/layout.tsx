@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-w-7xl`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-7xl h-screen w-screen overflow-hidden`}
       >
         <StoreProvider>
           <Inbox>{children}</Inbox>

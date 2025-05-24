@@ -11,7 +11,6 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/solid";
 import clsx from "clsx";
-import { div } from "motion/react-client";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -89,7 +88,7 @@ const Details = () => {
 
   const { assignee } = useAppSelector((state) => state.chats);
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto bg-white">
       <div className="divide-y divide-gray-300">
         <div className="px-4 py-5 space-y-3">
           <div className="flex ">
