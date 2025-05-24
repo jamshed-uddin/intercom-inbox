@@ -2,11 +2,10 @@
 
 import { WindowIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
-import { ArrowUpIcon } from "@heroicons/react/24/solid";
-import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { setAIInput } from "@/redux/features/messageInputSlice";
+import AIMessageNInput from "./AIMessageNInput";
+import Details from "./Details";
 
 interface AISectionProps {
   toggleSection: () => void;
@@ -16,37 +15,12 @@ const tabs: string[] = ["AI Copilot", "Details"];
 
 const AISection = ({ toggleSection }: AISectionProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const { ai } = useAppSelector((state) => state.messageInput);
-  const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  console.log(ai.input);
-  useEffect(() => {
-    console.log("Effect runs, inputRef.current:", inputRef.current);
-    if (ai.input.trim() && inputRef.current) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    }
-  }, [ai.input]);
-
-  const handleAIInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setAIInput(e.target.value));
-  };
 
   return (
-    <div
-      className="h-screen flex flex-col "
-      style={{
-        backgroundImage: `
-              linear-gradient(to top, rgba(255, 255, 255, 0), white 40%),
-              linear-gradient(to left, #fbcfe8, #c7d2fe)
-            `,
-      }}
-    >
+    <div className="h-screen flex flex-col ">
       {/* header -- tabs */}
-      <div className="shrink-0 flex justify-between items-start pt-2  border-b  border-gray-300 pr-3">
-        <div className="flex gap-4 px-3 text-sm">
+      <div className="shrink-0 flex justify-between items-start pt-2  border-b  border-gray-300 pr-4">
+        <div className="flex gap-4 px-4 text-sm">
           {tabs.map((tab) => (
             <motion.button
               key={tab}
@@ -75,42 +49,7 @@ const AISection = ({ toggleSection }: AISectionProps) => {
         </button>
       </div>
 
-      {/* messages */}
-      <div className="flex-1 overflow-y-auto px-2 h-full ">
-        {ai.messages.length > 0 ? (
-          <div>ai messages</div>
-        ) : (
-          <div className="flex h-full justify-center items-center text-center">
-            <div>
-              <h3 className="text-sm font-medium">Hi, I am Fin AI Copilot</h3>
-              <p className="text-xs text-gray-600">
-                Ask me about anything about this conversation
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* input box */}
-      <div className="shrink-0 px-2 pb-4  ">
-        <div className="relative bg-white rounded-lg">
-          <input
-            ref={inputRef}
-            type="text"
-            className=" w-full shadow-md rounded-lg py-2 px-1 focus:outline-0 focus:ring-2 focus:ring-indigo-600 transition-all duration-500"
-            value={ai.input}
-            onChange={handleAIInputChange}
-          />
-          <button
-            className={clsx(
-              " rounded-lg px-1.5  absolute right-0.5 top-1 bottom-1 cursor-pointer transition-all duration-500",
-              ai.input ? "bg-black text-white" : "bg-white text-black"
-            )}
-          >
-            <ArrowUpIcon className="w-4 h-4 " />
-          </button>
-        </div>
-      </div>
+      {selectedTab === "AI Copilot" ? <AIMessageNInput /> : <Details />}
     </div>
   );
 };

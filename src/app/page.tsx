@@ -1,7 +1,7 @@
 "use client";
 import ChatMessages from "@/components/ChatMessages";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
-import { setSectedChat } from "@/redux/features/chatsSlice";
+import { setMessageToChat, setSelectedChat } from "@/redux/features/chatsSlice";
 import { setCustomerInput } from "@/redux/features/messageInputSlice";
 import { toggleAISection } from "@/redux/features/sectionToggleSlice";
 import { WindowIcon } from "@heroicons/react/24/outline";
@@ -51,6 +51,22 @@ export default function Home() {
     dispatch(setCustomerInput(e.target.value));
   };
 
+  const sendMessage = () => {
+    const newMessage = {
+      chatId: selectedChat?.chatId as string,
+      message: {
+        id: `msg_${Math.ceil(Math.random() * 1000)}`,
+        content: customer.input,
+        timestamp: new Date().toISOString(),
+        isRead: true,
+        sender: "bot",
+      },
+    };
+
+    dispatch(setMessageToChat(newMessage));
+    dispatch(setCustomerInput(""));
+  };
+
   if (!selectedChat) {
     return (
       <div className="h-full w-full flex justify-center items-center">
@@ -78,7 +94,7 @@ export default function Home() {
             </span>
           </button>
           <button
-            onClick={() => dispatch(setSectedChat(null))}
+            onClick={() => dispatch(setSelectedChat(null))}
             className="flex items-center cursor-pointer bg-black text-white rounded-md gap-1 px-2 py-1 font-medium"
           >
             <InboxArrowDownIcon className="w-4 h-4 inline" /> Close
@@ -139,7 +155,10 @@ export default function Home() {
                 customer.input ? "bg-black text-white" : "bg-white text-black"
               )}
             >
-              <button className="text-sm border-r border-gray-300 pr-1.5 font-medium">
+              <button
+                onClick={sendMessage}
+                className="text-sm border-r border-gray-300 pr-1.5 font-medium cursor-pointer"
+              >
                 Send
               </button>
               <span className="pl-1">

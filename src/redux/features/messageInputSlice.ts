@@ -1,5 +1,5 @@
 // store/chatSlice.ts
-import { Message } from "@/lib/types";
+import { AIMessage } from "@/lib/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ChatState {
@@ -7,7 +7,7 @@ interface ChatState {
     input: string;
   };
   ai: {
-    messages: Message[];
+    messages: AIMessage[];
     input: string;
   };
 }
@@ -33,24 +33,13 @@ const messageInputSlice = createSlice({
       state.ai.input = action.payload;
     },
 
-    addAIMessage: (state, action: PayloadAction<Message>) => {
+    addAIMessage: (state, action: PayloadAction<AIMessage>) => {
       state.ai.messages.push(action.payload);
-    },
-    transferToAIInput: (state, action: PayloadAction<string>) => {
-      state.ai.input = action.payload;
-    },
-    transferToCustomerInput: (state, action: PayloadAction<string>) => {
-      state.customer.input = action.payload;
     },
   },
 });
 
-export const {
-  setCustomerInput,
-  setAIInput,
-  addAIMessage,
-  transferToAIInput,
-  transferToCustomerInput,
-} = messageInputSlice.actions;
+export const { setCustomerInput, setAIInput, addAIMessage } =
+  messageInputSlice.actions;
 
 export default messageInputSlice.reducer;

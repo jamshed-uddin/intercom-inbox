@@ -3,17 +3,28 @@ export type Message = {
   content: string;
   timestamp: string;
   isRead: boolean;
-  sender: "user" | "bot";
+  sender: string;
+};
+
+export type AIMessage = {
+  id: string;
+  content: string;
+  timeStamp: string;
+  sender: string;
+  resources?: string[];
+};
+
+export type User = {
+  id: string;
+  name: string | null;
+  avatar: string | null;
+  isLoggedIn: boolean;
+  team?: null | string;
 };
 
 export interface Chat {
   chatId: string;
-  user: {
-    id: string;
-    name: string | null;
-    avatar: string | null;
-    isLoggedIn: boolean;
-  };
+  user: User;
   lastMessage: Message;
   messages: Message[];
 }

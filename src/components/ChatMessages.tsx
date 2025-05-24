@@ -1,4 +1,5 @@
-import { useAppDispatch } from "@/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import timeDiff from "@/lib/timeDiff";
 import { Chat } from "@/lib/types";
 import { setAIInput } from "@/redux/features/messageInputSlice";
 import clsx from "clsx";
@@ -20,6 +21,8 @@ const ChatMessages = ({
     left: number;
   } | null>(null);
   const [selectedText, setSelectedText] = useState("");
+
+  const assignee = useAppSelector((state) => state.chats.assignee);
 
   useEffect(() => {
     const getSelectedText = () => {
@@ -52,7 +55,7 @@ const ChatMessages = ({
       if (dataAttribute === "message") {
         setSelectedText(text);
         setBtnPosition({
-          top: rect.top + container.scrollTop - (containerRect?.top + 30),
+          top: rect.top + container.scrollTop - (containerRect?.top + 32),
           left: rect.left - containerRect?.left,
         });
       }
@@ -95,6 +98,7 @@ const ChatMessages = ({
           )}
         >
           <div className="flex items-end max-w-[80%] gap-2">
+            {/* sender avatar */}
             {message.sender === "user" && (
               <div className="h-6  w-6  overflow-hidden shrink-0">
                 <Image
@@ -106,15 +110,22 @@ const ChatMessages = ({
                 />
               </div>
             )}
-
+            {/* message content */}
             <div
               className={clsx(
-                " rounded-lg p-2 animate-fadeIn flex items-center gap-1 text-sm ",
+                " rounded-lg p-2 animate-fadeIn  gap-1 text-sm ",
                 message.sender === "user" ? "  bg-gray-200" : "  bg-indigo-100 "
               )}
             >
-              <div data-element="message">{message.content}</div>
-
+              <div data-element={message.sender === "user" ? "message" : ""}>
+                {message.content}
+              </div>
+              <div className="text-[0.65rem] text-end mt-0.5">
+                {`${message.isRead && "Seen ."}  ${timeDiff(
+                  message.timestamp
+                )}`}
+              </div>
+              {/* floating button on selected text */}
               {selectedText ? (
                 <div
                   onMouseDown={askAIHandler}
@@ -129,6 +140,19 @@ const ChatMessages = ({
                 </div>
               ) : null}
             </div>
+
+            {/* assignee avatar */}
+            {message.sender === "bot" && (
+              <div className="h-6  w-6  overflow-hidden shrink-0">
+                <Image
+                  width={30}
+                  height={30}
+                  src={assignee.avatar as string}
+                  alt={assignee.name || "avatar"}
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}

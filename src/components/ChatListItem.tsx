@@ -2,19 +2,20 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { Chat } from "@/lib/types";
-import { setSectedChat } from "@/redux/features/chatsSlice";
+import { setSelectedChat } from "@/redux/features/chatsSlice";
 import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
 
 import { motion } from "motion/react";
+import timeDiff from "@/lib/timeDiff";
 
 const ChatListItem = ({ chat }: { chat: Chat }) => {
   const dispatch = useAppDispatch();
   const { selectedChat } = useAppSelector((state) => state.chats);
 
   const addChatToSelected = () => {
-    dispatch(setSectedChat(chat));
+    dispatch(setSelectedChat(chat));
   };
 
   return (
@@ -38,12 +39,19 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
             className="w-full h-full rounded-full object-cover"
           />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 w-full">
           <h3 className="  leading-3">{chat?.user?.name || chat?.user?.id}</h3>
-          <p className="text-sm">{`${chat?.lastMessage?.content.slice(
-            0,
-            20
-          )}...`}</p>
+          <p className="flex justify-between items-end w-full">
+            <span className="text-sm">
+              {chat?.lastMessage?.content.length > 20
+                ? `${chat.lastMessage.content.slice(0, 20)}...`
+                : chat?.lastMessage?.content}
+            </span>
+
+            <span className="text-[0.65rem]">
+              {timeDiff(chat.lastMessage.timestamp)}
+            </span>
+          </p>
         </div>
       </div>
     </div>

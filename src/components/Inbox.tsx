@@ -21,7 +21,7 @@ const Inbox = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <div className="flex h-screen overflow-hidden  ">
       {/* chat list */}
-      <div className=" lg:w-1/5 w-full transition-all duration-500 z-50  absolute inset-0 lg:static shrink-0">
+      <div className=" lg:w-[22%] w-full transition-all duration-500 z-50  absolute inset-0 lg:static shrink-0">
         <ChatList />
       </div>
 
